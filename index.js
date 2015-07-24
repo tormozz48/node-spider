@@ -9,7 +9,7 @@ function Spider(opts) {
     this.pending = [];
     this.active = [];
 
-    //thid.crawled = {};
+    this.crawled = {};
 };
 
 Spider.prototype = {
@@ -26,9 +26,14 @@ Spider.prototype = {
     },
 
     queue: function(url, done) {
+        if (this.crawled[url]]) {
+            return;
+        }
+
         if (this.full()) {
             this.log('Queueing', url);
             this.pending.push({u:url, d:done});
+            this.crawled[url.replace(/\/$/, '')] = true;
         } else {
             this.load(url, done);
         }
