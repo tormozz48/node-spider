@@ -26,7 +26,7 @@ Spider.prototype = {
     },
 
     queue: function(url, done) {
-        if (this.crawled[url]]) {
+        if (this.crawled[url]) {
             return;
         }
 
